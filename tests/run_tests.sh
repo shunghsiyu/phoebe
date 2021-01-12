@@ -38,4 +38,4 @@ ${BUILD_DIR}/src/phoebe -s settings.json -f rates.csv -m training
 # it to LD_PRELOAD. If libasan is not linked LD_PRELOAD will be empty, and no
 # preloading occurs.
 LIBASAN="$(ldd "${BUILD_DIR}/scripts/_phoebe.abi3.so" | grep -oe '/[^ ]*/libasan\.so\.[^ ]\+' || true)"
-LD_PRELOAD="$LIBASAN" PYTHONPATH=${BUILD_DIR}/scripts/ ${SRC_DIR}/scripts/collect_stats.py lo 1
+LD_PRELOAD="$LIBASAN" ASAN_OPTIONS=detect_leaks=0 PYTHONPATH=${BUILD_DIR}/scripts/ ${SRC_DIR}/scripts/collect_stats.py lo 1
